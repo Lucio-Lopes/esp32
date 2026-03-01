@@ -1,0 +1,189 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    font-family: Helvetica, sans-serif;
+}
+
+.wrap-div{
+    display: flex;
+    width: 100%;
+}
+
+.menu{
+    width: 15%;
+    height: 100vh;
+    background-color: #2d4b7b;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu .logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    border-bottom: 2px solid black;
+    color: #f8d72e;
+}
+
+.menu nav ul li{
+    padding: 1rem;
+    border-bottom: 2px solid black;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85%;
+    background-color: #f6f6f9;
+    gap: 4rem;
+}
+
+.options{
+    display: flex;
+    gap: .3rem;
+    height: 2.4rem;
+    width: 30rem;
+    
+}
+
+.options select {
+    width: 30rem;
+    color: black;
+    font-size: 1rem;
+    padding-left: 0.8rem;
+    background-color: white;
+}
+
+.options button{
+    width: 3rem;
+    height: 2.4rem;
+    background-color: white;
+}
+
+.selecao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.condominio{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 80%;
+    align-items: center;
+}
+
+.condominio h2{
+    margin-bottom: 2rem;
+}
+.equipamentos{
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2rem;
+    height: max-content;
+    padding: 1rem;
+}
+
+.equipamentos > div{
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+}
+.dispositivo{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: 0 0 25px rgb(160, 155, 155);
+    justify-content: space-between;
+}
+.dispositivo >div{
+    display: flex;
+    align-items: center;
+}
+
+.botoes{
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.ligar{
+    background-color: rgb(17, 170, 17);
+    border-radius: 5px;
+    border: none;
+    width: 4.3rem;
+    height: 2.5rem;
+    color: white;
+    font-size: 11pt;
+    font-weight: 700;
+    box-shadow: 1px 1px 1px white;
+    cursor: pointer;
+}
+
+.desligar{
+    background-color: rgb(236, 35, 35);
+    border-radius: 5px;
+    border: none;
+    width: 4.3rem;
+    height: 2.5rem;
+    color: white;
+    font-size: 11pt;
+    font-weight: 700;
+    box-shadow: 1px 1px 1px white;
+    cursor: pointer;
+}
+
+.ligado {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: green;
+    margin-right: 3px;
+    animation: piscar 1s infinite;
+}
+.desligado{
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: red;
+    margin-right: 3px;
+    
+}
+@keyframes piscar {
+  0% {
+    background-color: black;
+    box-shadow: none;
+  }
+
+  50% {
+    background-color: green;
+    box-shadow: 0 0 15px green;
+  }
+
+  100% {
+    background-color: black;
+    box-shadow: none;
+  }
+}
