@@ -8,23 +8,24 @@
     </head>
     <body>
         <div class="login-container">
-            <h2>Cadastro</h2>
-            <form>
+            <h2>Login</h2>
+
+            <form action="login" method="get">
                 <div class="input-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Digite seu email" required>
+                    <input type="email" name="email" id="email" placeholder="Digite seu email" required>
                 </div>
+
                 <div class="input-group">
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+                    <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
                 </div>
-                <div class="input-group">   
-                    <input type="password" id="senha" placeholder="Confirme sua senha" required>
-                </div>
-                <button type="submit" class="login-btn">Cadastrar</button>
+
+                <button type="submit" class="login-btn">Entrar</button>
             </form>
+
             <div class="footer-text">
-                Já tem uma conta? <a href="index.html">Fazer login</a>
+                Não tem conta? <a href="cadastro.html">Criar conta</a>
             </div>
         </div>
     </body>

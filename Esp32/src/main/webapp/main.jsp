@@ -1,3 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    %>
+
+<%
+	session = request.getSession(false);
+	if(session == null || session.getAttribute("usuarioLogado") == null) {
+		response.sendRedirect("index.html");
+		return;
+	}
+%>
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -22,7 +33,7 @@
                 </nav>
             </div>
             <div class="main">
-
+					
             </div>
         </div>
         <script src="script.js"></script>
