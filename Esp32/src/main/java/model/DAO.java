@@ -51,8 +51,9 @@ public class DAO {
 				String nome = rs.getString(2);
 				String email1 = rs.getString(3);
 				String senha1 = rs.getString(4);
-				boolean ativo = rs.getBoolean(5);
-				return new Usuario(id,nome,email1,senha1,ativo);
+				boolean	admin = rs.getBoolean(5);
+				boolean ativo = rs.getBoolean(6);
+				return new Usuario(id,nome,email1,senha1,admin,ativo);
 			}
 			con.close();
 		} catch (Exception e) {

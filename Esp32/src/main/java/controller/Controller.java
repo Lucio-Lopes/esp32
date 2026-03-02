@@ -2,20 +2,16 @@ package controller;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.DAO;
 import model.Usuario;
 
-/**
- * Servlet implementation class Controller
- */
-@WebServlet(urlPatterns = {"/login"})
+@WebServlet(urlPatterns = {"/login","/condominio","/usuario","/addCond"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
@@ -32,14 +28,24 @@ public class Controller extends HttpServlet {
 				String senha = request.getParameter("senha");
 				Usuario user = dao.validarUsuario(email, senha);
 				if(user == null) {
-					response.sendRedirect("index.html");
+					response.sendRedirect("login.html");
 				}else if(email.equals(user.getEmail()) && senha.equals(user.getPassword()) && user.isAtivo() == true) {
 					HttpSession session = request.getSession(true);
-					session.setAttribute("usuarioLogado", email);
-					response.sendRedirect("main.jsp");
+					session.setAttribute("usuarioLogado", user.getEmail());
+					session.setAttribute("isAdmin", user.isAdmin());
+					response.sendRedirect("index.jsp");
 				}else {
-					response.sendRedirect("index.html");
+					response.sendRedirect("login.html");
 				}
+			break;
+			case "/condominio":
+				request.getRequestDispatcher("mainCondominio.jsp").forward(request, response);
+			break;
+			case "/usuario":
+				request.getRequestDispatcher("mainUsuario.jsp").forward(request, response);
+			break;
+			case "/addCond":
+				request.getRequestDispatcher("mainAddCond.jsp").forward(request, response);
 			break;
 			default:
 				response.sendRedirect("index.html");

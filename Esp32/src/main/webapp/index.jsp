@@ -5,7 +5,7 @@
 <%
 	session = request.getSession(false);
 	if(session == null || session.getAttribute("usuarioLogado") == null) {
-		response.sendRedirect("index.html");
+		request.getRequestDispatcher("login.html").forward(request, response);
 		return;
 	}
 %>
@@ -26,9 +26,9 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><i class="fa-regular fa-building"></i>Condomínios</li>
-                        <li><i class="fa-regular fa-user"></i>Usuários</li>
-                        <li><i class="fa-solid fa-door-open"></i>Sair</li>
+                        <li><a href="condominio"><i class="fa-regular fa-building"></i>Condomínios</a></li>
+                        <li><a href="usuario"><i class="fa-regular fa-user"></i>Usuários</a></li>
+                        <li><a><i class="fa-solid fa-door-open"></i>Sair</a></li>
                     </ul>
                 </nav>
             </div>

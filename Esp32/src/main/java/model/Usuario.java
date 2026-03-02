@@ -8,17 +8,19 @@ public class Usuario {
 	private String name;
 	private String email;
 	private String password;
+	private boolean admin;
 	private boolean ativo;
 	public Usuario() {
 		
 	}
 
-	public Usuario(Long id, String name, String email, String password,boolean ativo) {
+	public Usuario(Long id, String name, String email, String password, boolean admin, boolean ativo) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.setAdmin(admin);
 		this.ativo = ativo;
 	}
 
@@ -53,6 +55,22 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
 
 	@Override
 	public int hashCode() {
@@ -71,13 +89,7 @@ public class Usuario {
 		return Objects.equals(id, other.id);
 	}
 
-	public boolean isAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
+	
 	
 	
 	
