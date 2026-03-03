@@ -11,10 +11,11 @@ import jakarta.servlet.http.HttpSession;
 import model.DAO;
 import model.Usuario;
 
-@WebServlet(urlPatterns = {"/login","/condominio","/usuario","/addCond"})
+@WebServlet(urlPatterns = {"/login","/condominio","/usuario","/addCond","/addUser","/sair","/insertUser"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
+	Usuario usuario = new Usuario();
     public Controller() {
         super();
     }
@@ -47,11 +48,34 @@ public class Controller extends HttpServlet {
 			case "/addCond":
 				request.getRequestDispatcher("mainAddCond.jsp").forward(request, response);
 			break;
+			case "/addUser":
+				request.getRequestDispatcher("addUser.jsp").forward(request, response);
+			break;
+			case "/sair":
+				HttpSession session = request.getSession(false);
+				if(session != null) {
+					session.invalidate();
+				}
+				response.sendRedirect("login.html");
+			break;
+			case "/insertUser":
+				insertUser(request, response);
+			break;
 			default:
-				response.sendRedirect("index.html");
+				response.sendRedirect("index.jsp");
 			break;
 		}
 		
 	}
-
+	
+	protected void insertUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		usuario.setEmail(request.getParameter("email"));
+		usuario.setName(request.getParameter("nome"));
+		usuario.setPassword(request.getParameter("senha1"));
+		if(request.getParameter("isAdmin") != null) {
+			usuario.setAdmin(true);
+		}
+		dao.insertUsuario(usuario);
+		response.sendRedirect("usuario");
+	}
 }

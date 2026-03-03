@@ -31,17 +31,19 @@
 			<nav>
 				<ul>
 					<li><a href="condominio"><i class="fa-regular fa-building"></i>Condomínios</a></li>
-					<li><a href="usuario"><i class="fa-regular fa-user"></i>Usuários</a></li>
-					<li><a><i class="fa-solid fa-door-open"></i>Sair</a></li>
+					<%if(admin == true){%>
+						<li><a href="usuario"><i class="fa-regular fa-user"></i>Usuários</a></li>
+					<%} %>
+					<li><a href="sair"><i class="fa-solid fa-door-open"></i>Sair</a></li>
 				</ul>
 			</nav>
 		</div>
 		<div class="main">
 			<div class="selecao">
 				<%if(admin == true){%>
-				<div class="btncond-header">
-					<a href="addCond">Adicionar</a> <a href="">Editar</a>
-				</div>
+					<div class="btncond-header">
+						<a href="addCond">Adicionar</a> <a href="">Editar</a>
+					</div>
 				<%} %>
 
 				<div>

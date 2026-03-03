@@ -1,53 +1,25 @@
-const menu = document.querySelectorAll(".menu ul > li");
-const main = document.querySelector(".main");
-
-console.log(menu);
-
-menu.forEach((li) =>{
-    li.addEventListener("click", e=>{
-        let value = e.target.innerText;
-
-               const btnUserHeader = document.querySelectorAll(".btn-header > button");
-                btnUserHeader.forEach((button)=>{
-                    button.addEventListener("click", e=>{
-                        
-                        value = e.target.innerText;
-                        console.log(value)
-                        if(value == "Adicionar"){
-                            main.innerHTML = `
-                                <div class="add-form">
-                                    <h2>Novo usuário</h2>
-                                    <form>
-                                        <div class="input-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" id="email" placeholder="Digite seu email" required>
-                                        </div>
-                                        <div class="input-group">
-                                            <label for="senha">Senha</label>
-                                            <input type="password" id="senha" placeholder="Digite sua senha" required>
-                                        </div>
-                                        <div class="input-group">   
-                                            <input type="password" id="senha" placeholder="Confirme sua senha" required>
-                                        </div>
-                                        <div class="input-admin">
-                                            <input type="checkbox" id="admin"><span>admin</span>
-                                        </div>
-                                        <button type="submit" class="login-btn">Cadastrar</button>
-                                    </form>
-                                    
-                                </div>
-                            `
-                        }
-                    })
-                })
-            break;
-            case "Sair" : 
-               
-            break;
-            default : 
-               console.log("Acão invalida");
-            break;
-        }
-    })
-})
-
+function validarUsuario(){
+	let email = formUser.email.value;
+	let nome = formUser.nome.value;
+	let senha1 = formUser.senha1.value;
+	let senha2 = formUser.senha2.value;
+	console.log(senha1)
+	if(email === ""){
+		alert("Preencha o campo email");
+		formUser.email.focus();
+	}else if(nome === ""){
+		alert("Preencha o campo nome");
+		formUser.nome.focus();
+	}else if(senha1 === ""){
+		alert("Preencha o campo senha");
+		formUser.senha1.focus();
+		
+	}else if(senha1 != senha2){
+		alert("As senhas não coincidem")
+		formUser.senha2.focus();
+	}else{
+		document.forms["formUser"].submit();
+	}
+	
+	
+}

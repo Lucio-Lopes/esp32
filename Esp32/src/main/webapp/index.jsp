@@ -8,6 +8,7 @@
 		request.getRequestDispatcher("login.html").forward(request, response);
 		return;
 	}
+	boolean admin = (boolean) session.getAttribute("isAdmin");
 %>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -27,8 +28,10 @@
                 <nav>
                     <ul>
                         <li><a href="condominio"><i class="fa-regular fa-building"></i>Condomínios</a></li>
-                        <li><a href="usuario"><i class="fa-regular fa-user"></i>Usuários</a></li>
-                        <li><a><i class="fa-solid fa-door-open"></i>Sair</a></li>
+	                    <%if(admin == true){%>
+							<li><a href="usuario"><i class="fa-regular fa-user"></i>Usuários</a></li>
+						<%} %>
+                        <li><a href="sair"><i class="fa-solid fa-door-open"></i>Sair</a></li>
                     </ul>
                 </nav>
             </div>

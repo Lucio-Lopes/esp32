@@ -23,6 +23,7 @@ public class DAO {
 			
 		}
 	}
+	
 	public void teste() {
 		
 		try {
@@ -60,6 +61,27 @@ public class DAO {
 			System.out.println(e);
 		}
 		return null;
+		
+	}
+	
+	public void insertUsuario(Usuario user) {
+		
+		String criar = "insert into usuario(nome,email,senha,admin,ativo) values(?,?,?,?,?)";
+		
+		try {
+			
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(criar);
+			pst.setString(1, user.getName());
+			pst.setString(2, user.getEmail());
+			pst.setString(3, user.getPassword());
+			pst.setBoolean(4, user.isAdmin());
+			pst.setBoolean(5, true);
+			pst.executeUpdate();
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		
 	}
 }
