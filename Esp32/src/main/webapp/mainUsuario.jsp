@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="model.Usuario" %>
+<%@page import="java.util.ArrayList" %>
 
 <%
 	session = request.getSession(false);
-	if(session == null || session.getAttribute("usuarioLogado") == null) {
+	if (session == null || session.getAttribute("usuarioLogado") == null) {
 		request.getRequestDispatcher("login.html").forward(request, response);
 		return;
 	}
 	boolean admin = (boolean) session.getAttribute("isAdmin");
-	if(admin != true){
+	if (admin != true) {
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
+	ArrayList<Usuario> lista = (ArrayList<Usuario>) request.getAttribute("usuarios");
 %>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -22,7 +25,7 @@
 	integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="style2.css">
-<title>Home</title>
+<title>Reboot de condomínios</title>
 </head>
 <body>
 	<div class="wrap-div">
@@ -33,20 +36,28 @@
 			<nav>
 				<ul>
 					<li><a href="condominio"><i class="fa-regular fa-building"></i>Condomínios</a></li>
-					<%if(admin == true){%>
-						<li><a href="usuario"><i class="fa-regular fa-user"></i>Usuários</a></li>
-					<%} %>
+					<%
+					if (admin == true) {
+					%>
+					<li><a href="usuario"><i class="fa-regular fa-user"></i>Usuários</a></li>
+					<%
+					}
+					%>
 					<li><a href="sair"><i class="fa-solid fa-door-open"></i>Sair</a></li>
 				</ul>
 			</nav>
 		</div>
 		<div class="main">
 			<div class="selecao">
-				<%if(admin == true){%>
+				<%
+				if (admin == true) {
+				%>
 				<div class="btncond-header">
 					<a href="addUser">Adicionar</a>
 				</div>
-				<%} %>
+				<%
+				}
+				%>
 				<div class="usuarios">
 					<h1>Todos os usuários</h1>
 					<table class="tabela-usuarios">
@@ -59,28 +70,21 @@
 							</tr>
 						</thead>
 						<tbody>
+							<%
+							for (int i = 0; i < lista.size(); i++) {
+							%>
 							<tr>
-								<td>João Silva</td>
-								<td>joao.silva@locktec.com.br</td>
-								<td class="admin sim">Sim</td>
-								<td class="acoes"><a class="editar">Editar</a>
-									<a class="excluir">Excluir</a></td>
+								<td><%=lista.get(i).getName()%></td>
+								<td><%=lista.get(i).getEmail()%></td>
+								<td class="admin sim"><%=(lista.get(i).isAdmin())? "Sim":"Não"%>
+								</td>
+								<td class="acoes"><a class="editar">Editar</a> <a
+									class="excluir">Excluir</a></td>
 							</tr>
-							<tr>
-								<td>Maria Souza</td>
-								<td>maria@email.com</td>
-								<td class="admin nao">Não</td>
-								<td class="acoes"><a class="editar">Editar</a>
-									<a class="excluir">Excluir</a></td>
-							</tr>
-							<tr>
-								<td>Lucas Lima</td>
-								<td>lucas@email.com</td>
-								<td class="admin sim">Sim</td>
-								<td class="acoes"><a class="editar">Editar</a>
-									<a class="excluir">Excluir</a></td>
+							<%
+							}
+							%>
 
-							</tr>
 						</tbody>
 					</table>
 				</div>

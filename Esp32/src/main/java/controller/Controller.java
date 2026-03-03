@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -43,7 +45,7 @@ public class Controller extends HttpServlet {
 				request.getRequestDispatcher("mainCondominio.jsp").forward(request, response);
 			break;
 			case "/usuario":
-				request.getRequestDispatcher("mainUsuario.jsp").forward(request, response);
+				listaUsuarios(request,response);
 			break;
 			case "/addCond":
 				request.getRequestDispatcher("mainAddCond.jsp").forward(request, response);
@@ -78,4 +80,12 @@ public class Controller extends HttpServlet {
 		dao.insertUsuario(usuario);
 		response.sendRedirect("usuario");
 	}
+	
+	protected void listaUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		ArrayList<Usuario> lista = dao.listarUser();
+		request.setAttribute("usuarios", lista);
+		RequestDispatcher rd = request.getRequestDispatcher("mainUsuario.jsp");
+		rd.forward(request, response);
+	}
+	
 }

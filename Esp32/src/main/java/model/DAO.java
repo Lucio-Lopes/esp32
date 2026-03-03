@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DAO {
 	private String driver = "com.mysql.cj.jdbc.Driver";
@@ -84,4 +86,33 @@ public class DAO {
 		}
 		
 	}
+	
+	public ArrayList<Usuario> listarUser(){
+		ArrayList<Usuario> usuarios = new ArrayList<>();
+		
+		String query = "SELECT * FROM usuario ORDER BY id;";
+		try {
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				
+				Long id = rs.getLong(1);
+				String nome = rs.getString(2);
+				String email = rs.getString(3);
+				String senha = rs.getString(4);
+				boolean	admin = rs.getBoolean(5);
+				boolean ativo = rs.getBoolean(6);
+				usuarios.add(new Usuario(id,nome,email,senha,admin,ativo));
+				
+			} 
+			con.close();
+			return usuarios;
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
 }
+
