@@ -114,5 +114,32 @@ public class DAO {
 			return null;
 		}
 	}
+	
+	public ArrayList<Usuario> pesquisarUser(String name){
+		ArrayList<Usuario> usuarios = new ArrayList<>();
+		
+		String query = "SELECT * FROM usuario WHERE nome LIKE '%"+name+"%' ORDER BY nome DESC";
+		try {
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				
+				Long id = rs.getLong(1);
+				String nome = rs.getString(2);
+				String email = rs.getString(3);
+				String senha = rs.getString(4);
+				boolean	admin = rs.getBoolean(5);
+				boolean ativo = rs.getBoolean(6);
+				usuarios.add(new Usuario(id,nome,email,senha,admin,ativo));
+			} 
+			con.close();
+			return usuarios;
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
 }
 

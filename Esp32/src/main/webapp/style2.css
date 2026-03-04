@@ -369,3 +369,31 @@ body{
 a{
 	color:white;
 }
+
+#pesquisa{
+
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+#pesquisa input{
+    height: 2.1rem;
+    width: 30%;
+    font-size: 11pt;
+    padding-left: 0.3rem;
+    outline: 0;
+    border: 1.5px solid black;
+}
+
+#btn-pesq{
+    padding: 0.6rem;
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    border-top-right-radius:5px;
+    border-bottom-right-radius:5px;
+    cursor: pointer;
+}

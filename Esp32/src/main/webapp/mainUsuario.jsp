@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="model.Usuario" %>
-<%@page import="java.util.ArrayList" %>
+<%@page import="model.Usuario"%>
+<%@page import="java.util.ArrayList"%>
 
 <%
 	session = request.getSession(false);
@@ -60,6 +60,12 @@
 				%>
 				<div class="usuarios">
 					<h1>Todos os usuários</h1>
+					<div id="pesquisa">
+						<input type="search" id="search" placeholder="pesquisar">
+						<button onclick="pesquisar()" id="btn-pesq">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</div>
 					<table class="tabela-usuarios">
 						<thead>
 							<tr>

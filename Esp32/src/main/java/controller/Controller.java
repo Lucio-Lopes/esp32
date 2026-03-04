@@ -3,17 +3,18 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import model.DAO;
 import model.Usuario;
 
-@WebServlet(urlPatterns = {"/login","/condominio","/usuario","/addCond","/addUser","/sair","/insertUser"})
+@WebServlet(urlPatterns = {"/login","/condominio","/usuario","/addCond","/addUser","/sair","/insertUser","/pesquisarUser"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
@@ -29,6 +30,8 @@ public class Controller extends HttpServlet {
 			case "/login":
 				String email = request.getParameter("email");
 				String senha = request.getParameter("senha");
+				String ip = request.getRemoteAddr();
+				System.out.println(ip);
 				Usuario user = dao.validarUsuario(email, senha);
 				if(user == null) {
 					response.sendRedirect("login.html");
@@ -63,6 +66,9 @@ public class Controller extends HttpServlet {
 			case "/insertUser":
 				insertUser(request, response);
 			break;
+			case "/pesquisarUser":
+				pesquisarUser(request,response);
+			break;
 			default:
 				response.sendRedirect("index.jsp");
 			break;
@@ -83,6 +89,14 @@ public class Controller extends HttpServlet {
 	
 	protected void listaUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		ArrayList<Usuario> lista = dao.listarUser();
+		request.setAttribute("usuarios", lista);
+		RequestDispatcher rd = request.getRequestDispatcher("mainUsuario.jsp");
+		rd.forward(request, response);
+	}
+	
+	protected void pesquisarUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String nome = request.getParameter("search");
+		ArrayList<Usuario> lista = dao.pesquisarUser(nome);
 		request.setAttribute("usuarios", lista);
 		RequestDispatcher rd = request.getRequestDispatcher("mainUsuario.jsp");
 		rd.forward(request, response);
