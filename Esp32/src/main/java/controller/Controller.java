@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.DAO;
 import model.Usuario;
 
-@WebServlet(urlPatterns = {"/login","/condominio","/usuario","/addCond","/addUser","/sair","/insertUser","/pesquisarUser"})
+@WebServlet(urlPatterns = {"/login","/condominio","/usuario","/addCond","/addUser","/sair","/insertUser","/pesquisarUser","/editUser","/updateUser"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
@@ -69,6 +69,12 @@ public class Controller extends HttpServlet {
 			case "/pesquisarUser":
 				pesquisarUser(request,response);
 			break;
+			case "/editUser":
+				editUser(request,response);
+			break;
+			case "/updateUser":
+				updateUser(request,response);
+			break;
 			default:
 				response.sendRedirect("index.jsp");
 			break;
@@ -77,6 +83,7 @@ public class Controller extends HttpServlet {
 	}
 	
 	protected void insertUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Usuario usuario = new Usuario();
 		usuario.setEmail(request.getParameter("email"));
 		usuario.setName(request.getParameter("nome"));
 		usuario.setPassword(request.getParameter("senha1"));
@@ -101,5 +108,26 @@ public class Controller extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("mainUsuario.jsp");
 		rd.forward(request, response);
 	}
-	
+	protected void editUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String email = request.getParameter("email");
+		Usuario usuario = dao.pegarUserEdit(email);
+		request.setAttribute("id", usuario.getId());
+		request.setAttribute("email", usuario.getEmail());
+		request.setAttribute("nome", usuario.getName());
+		request.setAttribute("admin", usuario.isAdmin());
+		request.getRequestDispatcher("editUser.jsp").forward(request, response);
+	}
+	protected void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Usuario usuario = new Usuario();
+		usuario.setId(Long.parseLong(request.getParameter("id")));
+		usuario.setEmail(request.getParameter("email"));
+		usuario.setName(request.getParameter("nome"));
+		usuario.setPassword(request.getParameter("senha1"));
+		if(request.getParameter("isAdmin") != null) {
+			usuario.setAdmin(true);
+		}
+		System.out.println(usuario.isAdmin());
+		dao.alterarUsuario(usuario);
+		request.getRequestDispatcher("usuario").forward(request, response);
+	}
 }

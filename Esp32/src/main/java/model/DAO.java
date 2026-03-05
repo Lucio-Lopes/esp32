@@ -12,22 +12,22 @@ public class DAO {
 	private String url = "jdbc:mysql://localhost:3306/esp32?useTimezone=true&serverTimezone=UTC";
 	private String user = "root";
 	private String password = "Ornq933@";
-	
+
 	private Connection conectar() {
 		Connection con = null;
 		try {
 			Class.forName(driver);
-			con = DriverManager.getConnection(url,user,password);
+			con = DriverManager.getConnection(url, user, password);
 			return con;
 		} catch (Exception e) {
-			
+
 			return null;
-			
+
 		}
 	}
-	
+
 	public void teste() {
-		
+
 		try {
 			Connection con = conectar();
 			System.out.println(con);
@@ -35,43 +35,43 @@ public class DAO {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 	}
-	
+
 	public Usuario validarUsuario(String email, String senha) {
-		
+
 		String read = "select * from usuario where email=? and senha=?";
 		try {
-			
+
 			Connection con = conectar();
 			PreparedStatement pst = con.prepareStatement(read);
 			pst.setString(1, email);
 			pst.setString(2, senha);
 			ResultSet rs = pst.executeQuery();
-			while(rs.next()) {
-				
+			while (rs.next()) {
+
 				Long id = rs.getLong(1);
 				String nome = rs.getString(2);
 				String email1 = rs.getString(3);
 				String senha1 = rs.getString(4);
-				boolean	admin = rs.getBoolean(5);
+				boolean admin = rs.getBoolean(5);
 				boolean ativo = rs.getBoolean(6);
-				return new Usuario(id,nome,email1,senha1,admin,ativo);
+				return new Usuario(id, nome, email1, senha1, admin, ativo);
 			}
 			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return null;
-		
+
 	}
-	
+
 	public void insertUsuario(Usuario user) {
-		
+
 		String criar = "insert into usuario(nome,email,senha,admin,ativo) values(?,?,?,?,?)";
-		
+
 		try {
-			
+
 			Connection con = conectar();
 			PreparedStatement pst = con.prepareStatement(criar);
 			pst.setString(1, user.getName());
@@ -84,62 +84,107 @@ public class DAO {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 	}
-	
-	public ArrayList<Usuario> listarUser(){
+
+	public ArrayList<Usuario> listarUser() {
 		ArrayList<Usuario> usuarios = new ArrayList<>();
-		
+
 		String query = "SELECT * FROM usuario ORDER BY id;";
 		try {
 			Connection con = conectar();
 			PreparedStatement pst = con.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
-			while(rs.next()) {
-				
+			while (rs.next()) {
+
 				Long id = rs.getLong(1);
 				String nome = rs.getString(2);
 				String email = rs.getString(3);
 				String senha = rs.getString(4);
-				boolean	admin = rs.getBoolean(5);
+				boolean admin = rs.getBoolean(5);
 				boolean ativo = rs.getBoolean(6);
-				usuarios.add(new Usuario(id,nome,email,senha,admin,ativo));
-				
-			} 
+				usuarios.add(new Usuario(id, nome, email, senha, admin, ativo));
+
+			}
 			con.close();
 			return usuarios;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e);
 			return null;
 		}
 	}
-	
-	public ArrayList<Usuario> pesquisarUser(String name){
+
+	public ArrayList<Usuario> pesquisarUser(String name) {
 		ArrayList<Usuario> usuarios = new ArrayList<>();
-		
-		String query = "SELECT * FROM usuario WHERE nome LIKE '%"+name+"%' ORDER BY nome DESC";
+
+		String query = "SELECT * FROM usuario WHERE nome LIKE '%" + name + "%' ORDER BY nome DESC";
 		try {
 			Connection con = conectar();
 			PreparedStatement pst = con.prepareStatement(query);
 			ResultSet rs = pst.executeQuery();
-			while(rs.next()) {
-				
+			while (rs.next()) {
+
 				Long id = rs.getLong(1);
 				String nome = rs.getString(2);
 				String email = rs.getString(3);
 				String senha = rs.getString(4);
-				boolean	admin = rs.getBoolean(5);
+				boolean admin = rs.getBoolean(5);
 				boolean ativo = rs.getBoolean(6);
-				usuarios.add(new Usuario(id,nome,email,senha,admin,ativo));
-			} 
+				usuarios.add(new Usuario(id, nome, email, senha, admin, ativo));
+			}
 			con.close();
 			return usuarios;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e);
 			return null;
 		}
 	}
-}
 
+	public Usuario pegarUserEdit(String email) {
+
+		String query = "SELECT * FROM usuario WHERE email='" + email + "'";
+		try {
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+
+				Long id = rs.getLong(1);
+				String nome = rs.getString(2);
+				String email1 = rs.getString(3);
+				String senha = rs.getString(4);
+				boolean admin = rs.getBoolean(5);
+				boolean ativo = rs.getBoolean(6);
+				return new Usuario(id, nome, email1, senha, admin, ativo);
+			}
+			con.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+		return null;
+	}
+
+	public void alterarUsuario(Usuario usuario) {
+
+		String create = "update usuario set email=?,nome=?,senha=?,admin=?,ativo=1 where id=?";
+
+		try {
+
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(create);
+			pst.setString(1, usuario.getEmail());
+			pst.setString(2, usuario.getName());
+			pst.setString(3, usuario.getPassword());
+			pst.setBoolean(4, usuario.isAdmin());
+			pst.setLong(5, usuario.getId());
+			pst.executeUpdate();
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+	}
+
+}
