@@ -90,7 +90,7 @@ public class DAO {
 	public ArrayList<Usuario> listarUser() {
 		ArrayList<Usuario> usuarios = new ArrayList<>();
 
-		String query = "SELECT * FROM usuario ORDER BY id;";
+		String query = "SELECT * FROM usuario WHERE ativo='1' ORDER BY nome";
 		try {
 			Connection con = conectar();
 			PreparedStatement pst = con.prepareStatement(query);
@@ -117,7 +117,7 @@ public class DAO {
 	public ArrayList<Usuario> pesquisarUser(String name) {
 		ArrayList<Usuario> usuarios = new ArrayList<>();
 
-		String query = "SELECT * FROM usuario WHERE nome LIKE '%" + name + "%' ORDER BY nome DESC";
+		String query = "SELECT * FROM usuario WHERE nome LIKE '%" + name + "%' and ativo='1' ORDER BY nome";
 		try {
 			Connection con = conectar();
 			PreparedStatement pst = con.prepareStatement(query);
@@ -179,6 +179,21 @@ public class DAO {
 			pst.setString(3, usuario.getPassword());
 			pst.setBoolean(4, usuario.isAdmin());
 			pst.setLong(5, usuario.getId());
+			pst.executeUpdate();
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+	}
+	
+	public void deleteUser(Long id) {
+		String create = "update usuario set ativo=0 where id="+id;
+
+		try {
+
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(create);
 			pst.executeUpdate();
 			con.close();
 		} catch (Exception e) {

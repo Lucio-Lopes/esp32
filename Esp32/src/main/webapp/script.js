@@ -1,6 +1,3 @@
-const id = document.querySelector("#id");
-
-console.log(id.value)
 
 function validarUsuario() {
     let email = formUser.email.value;
@@ -64,3 +61,13 @@ function pesquisar() {
 
     location = "pesquisarUser?search=" + search.value;
 }
+
+function confirmarUser(id){
+	let resposta = confirm("Confirma a exclusão desse usuario?");
+	console.log(resposta);
+	if(resposta){
+		location.href="deleteUser?id="+id;
+	}
+}
+
+

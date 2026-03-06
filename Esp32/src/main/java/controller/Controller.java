@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.DAO;
 import model.Usuario;
 
-@WebServlet(urlPatterns = {"/login","/condominio","/usuario","/addCond","/addUser","/sair","/insertUser","/pesquisarUser","/editUser","/updateUser"})
+@WebServlet(urlPatterns = {"/login","/condominio","/usuario","/addCond","/addUser","/sair","/insertUser","/pesquisarUser","/editUser","/updateUser","/deleteUser"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
@@ -75,6 +75,9 @@ public class Controller extends HttpServlet {
 			case "/updateUser":
 				updateUser(request,response);
 			break;
+			case "/deleteUser":
+				deleteUser(request,response);
+			break;
 			default:
 				response.sendRedirect("index.jsp");
 			break;
@@ -130,4 +133,10 @@ public class Controller extends HttpServlet {
 		dao.alterarUsuario(usuario);
 		request.getRequestDispatcher("usuario").forward(request, response);
 	}
+	
+	protected void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		dao.deleteUser(Long.parseLong(request.getParameter("id")));
+		response.sendRedirect("usuario");
+	}
+	
 }

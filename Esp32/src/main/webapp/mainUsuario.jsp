@@ -84,7 +84,9 @@
 								<td><%=lista.get(i).getEmail()%></td>
 								<td class="admin sim"><%=(lista.get(i).isAdmin())? "Sim":"Não"%>
 								</td>
-								<td class="acoes"><a class="editar" href="editUser?email=<%=lista.get(i).getEmail()%>">Editar</a> <a
+								<td class="acoes"><a class="editar"
+									href="editUser?email=<%=lista.get(i).getEmail()%>">Editar</a> <a
+									href="javascript:confirmarUser(<%out.print(lista.get(i).getId()); %>)"
 									class="excluir">Excluir</a></td>
 							</tr>
 							<%

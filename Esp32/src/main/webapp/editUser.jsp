@@ -59,9 +59,8 @@ if (admin != true) {
 					<h2>Novo usuário</h2>
 					<form name="editUser" action="updateUser">
 						<div class="input-group">
-							<label for="email">Id</label> <input type="text"
-								name="id" placeholder="Digite seu email"
-								value="<%=String.valueOf(request.getAttribute("id"))%>" required>
+							<label for="email">Id</label> <input type="text" class="idUser"
+								name="id" readonly value="<%=String.valueOf(request.getAttribute("id"))%>" required>
 						</div>
 						<div class="input-group">
 							<label for="email">Email</label> <input type="email" id="email"

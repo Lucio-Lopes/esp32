@@ -397,3 +397,7 @@ a{
     border-bottom-right-radius:5px;
     cursor: pointer;
 }
+
+.idUser{
+	border:1px solid red!important;
+}
